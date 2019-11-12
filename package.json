@@ -1,8 +1,9 @@
 {
   "name": "angular-electron",
-  "version": "6.1.0",
+  "version": "1.0.0",
   "description": "Angular 8 with Electron (Typescript + SASS + Hot Reload)",
   "homepage": "https://github.com/maximegris/angular-electron",
+  "repository": "https://github.com/bigastefan/electron-updater.git",
   "author": {
     "name": "Maxime GRIS",
     "email": "maxime.gris@gmail.com"
@@ -36,7 +37,9 @@
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "ship": "build --win -p always",
+    "dist": "electron-builder --publish always"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.802.2",
@@ -61,7 +64,7 @@
     "conventional-changelog-cli": "2.0.21",
     "core-js": "3.1.4",
     "electron": "6.0.2",
-    "electron-builder": "21.2.0",
+    "electron-builder": "^21.2.0",
     "electron-reload": "1.5.0",
     "jasmine-core": "3.4.0",
     "jasmine-spec-reporter": "4.2.1",
@@ -83,5 +86,10 @@
   },
   "engines": {
     "node": ">=10.9.0"
+  },
+  "dependencies": {
+    "electron-log": "^3.0.9",
+    "electron-updater": "^4.2.0",
+    "update-electron-app": "^1.5.0"
   }
 }

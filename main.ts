@@ -1,6 +1,16 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+const { autoUpdater } = require('electron-updater');
+
+// Logger
+autoUpdater.logger = require('electron-log');
+autoUpdater.logger.transports.file.level = 'info';
+
+// Setup updater events
+autoUpdater.on('checking-for-updates', () => {
+  console.log('Checking for updates... !');
+});
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -54,7 +64,10 @@ try {
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
-  app.on('ready', createWindow);
+  app.on('ready', () => {
+    autoUpdater.checkForUpdates();
+    createWindow();
+  });
 
   // Quit when all windows are closed.
   app.on('window-all-closed', () => {

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  version =  require('../../../package.json').version;
   constructor() { }
 
   ngOnInit() {
