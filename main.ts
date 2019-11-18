@@ -1,20 +1,21 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, dialog, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-const { autoUpdater } = require('electron-updater');
-
-// Logger
-autoUpdater.logger = require('electron-log');
-autoUpdater.logger.transports.file.level = 'info';
-
-// Setup updater events
-autoUpdater.on('checking-for-updates', () => {
-  console.log('Checking for updates... !');
-});
+import { autoUpdater } from 'electron-updater';
 
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+
+function sendMessage(msg: string) {
+  console.log('message sent !');
+  ipcMain.on('asynchronous-message', (event, arg) => {
+    console.log(arg); // prints "ping"
+    event.reply('asynchronous-reply', msg);
+  });
+}
+
+autoUpdater.setFeedURL('https://github.com/bigastefan/electron-updater');
 
 function createWindow() {
 
@@ -65,8 +66,8 @@ try {
   // initialization and is ready to create browser windows.
   // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
-    autoUpdater.checkForUpdates();
     createWindow();
+    autoUpdater.checkForUpdates();
   });
 
   // Quit when all windows are closed.
@@ -86,7 +87,34 @@ try {
     }
   });
 
+  autoUpdater.on('error', message => {
+    console.error('There was a problem updating the application');
+    console.error(message);
+  });
+
 } catch (e) {
   // Catch Error
   // throw e;
 }
+
+autoUpdater.on('checking-for-update', () => {
+  sendMessage('Checking for update...');
+});
+
+autoUpdater.on('update-available', (ev, info) => {
+  sendMessage('Update available.');
+});
+autoUpdater.on('update-not-available', (ev, info) => {
+  sendMessage('Update not available.');
+});
+autoUpdater.on('error', (ev, err) => {
+  sendMessage('Error in auto-updater.');
+  console.log(err);
+  sendMessage(err);
+});
+autoUpdater.on('download-progress', (ev, progressObj) => {
+  sendMessage('Download progress...');
+});
+autoUpdater.on('update-downloaded', (ev, info) => {
+  sendMessage('Update downloaded; will install in 5 seconds');
+});

@@ -1,0 +1,4 @@
+owner: bigastefan
+repo: electron-updater
+provider: github
+updaterCacheDirName: angular-electron-updater

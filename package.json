@@ -17,6 +17,15 @@
   ],
   "main": "main.js",
   "private": true,
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "repo": "electron-updater",
+        "owner": "bigastefan"
+      }
+    ]
+  },
   "scripts": {
     "postinstall": "npm run postinstall:electron && electron-builder install-app-deps",
     "postinstall:web": "node postinstall-web",
@@ -88,6 +97,7 @@
     "node": ">=10.9.0"
   },
   "dependencies": {
+    "electron-builder-squirrel-windows": "^22.1.0",
     "electron-log": "^3.0.9",
     "electron-updater": "^4.2.0",
     "update-electron-app": "^1.5.0"

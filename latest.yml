@@ -1,0 +1,8 @@
+version: 1.0.0
+files:
+  - url: angular-electron-Setup-1.0.0.exe
+    sha512: lmw4KznjB4JnaUWY612xBL23RBg7o+hyRz4wAxdcE7AXMVS4TI1bKeIpArwf1iCCjhmVPSN5MaiekkbY8qaoTQ==
+    size: 168706168
+path: angular-electron-Setup-1.0.0.exe
+sha512: lmw4KznjB4JnaUWY612xBL23RBg7o+hyRz4wAxdcE7AXMVS4TI1bKeIpArwf1iCCjhmVPSN5MaiekkbY8qaoTQ==
+releaseDate: '2019-11-18T08:39:24.166Z'
